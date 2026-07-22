@@ -6,4 +6,4 @@ print('''Aqui temos:
     3 - Empréstimo e devolução de livros;
     4 - Consulta de livros disponíveis;
     5 - Relatório de empréstimo.
-''')
+''') 
