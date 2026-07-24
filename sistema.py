@@ -5,7 +5,7 @@ emprestimos = []
 
 def menu():
     while True:
-        print("\n========== SISTEMA DE BIBLIOTECA ==========")
+        print("\n--------- SISTEMA DE BIBLIOTECA --------- ")
         print("1 - Cadastrar livro")
         print("2 - Cadastrar usuário")
         print("3 - Consultar livros")
@@ -103,7 +103,7 @@ def consultar_livros():
         print("Nenhum livro cadastrado.")
         return
 
-    print("\n===== LIVROS DISPONÍVEIS =====")
+    print("\n------ LIVROS DISPONÍVEIS ------ ")
 
     for livro in livros:
         print("----------------------------")
@@ -187,7 +187,7 @@ def relatorio_emprestimos():
         print("Nenhum empréstimo realizado.")
         return
 
-    print("\n======= RELATÓRIO =======")
+    print("\n------ RELATÓRIO ------ ")
 
     for emprestimo in emprestimos:
         print("------------------------")
@@ -250,7 +250,7 @@ def excluir_livro():
 
 
 def estatisticas():
-    print("\n===== ESTATÍSTICAS =====")
+    print("\n------ ESTATÍSTICAS ------ ")
 
     print("Total de livros cadastrados:", len(livros))
     print("Total de usuários:", len(usuarios))
