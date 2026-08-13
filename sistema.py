@@ -6,6 +6,7 @@ emprestimos = []
 def menu():
     while True:
         print("\n--------- SISTEMA DE BIBLIOTECA --------- ")
+
         print("1 - Cadastrar livro")
         print("2 - Cadastrar usuário")
         print("3 - Consultar livros")
