@@ -32,9 +32,6 @@ def menu():
             devolver_livro()
         elif opcao == "6":
             relatorio_emprestimos()
-        elif opcao == "0":
-            print("Programa encerrado.")
-            break
         elif opcao == "7":
             buscar_livro()
         elif opcao == "8":
