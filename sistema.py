@@ -142,7 +142,7 @@ def emprestar_livro():
 
     if usuario_encontrado is None:
         print("Usuário não encontrado.")
-        return
+        return 
 
     if livro_encontrado["quantidade"] <= 0:
         print("Livro indisponível.")
