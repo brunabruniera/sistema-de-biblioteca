@@ -1,5 +1,5 @@
 class Livro:
-    def __init__(self, titulo: str, autor: str, codigo: str, quantidade: int):
+    def __init__(self, titulo, autor, codigo, quantidade):
         self.titulo = titulo
         self.autor = autor
         self.codigo = codigo
@@ -10,9 +10,9 @@ class Livro:
         print("Título:", self.titulo)
         print("Autor:", self.autor)
         print("Código:", self.codigo)
-        print("Quantidade:", self.quantidade)
+        print("Quantidade disponível:", self.quantidade)
 
-    def editar(self, titulo: str, autor: str):
+    def editar(self, titulo, autor):
         if titulo != "":
             self.titulo = titulo
         if autor != "":
@@ -23,22 +23,22 @@ class Livro:
 
 
 class Usuario:
-    def __init__(self, nome: str, matricula: str):
+    def __init__(self, nome, matricula):
         self.nome = nome
         self.matricula = matricula
 
 
 class Emprestimo:
-    def __init__(self, usuario: Usuario, livro: Livro):
+    def __init__(self, usuario, livro):
         self.usuario = usuario
         self.livro = livro
 
 
 class Biblioteca:
     def __init__(self):
-        self.livros: list[Livro] = []
-        self.usuarios: list[Usuario] = []
-        self.emprestimos: list[Emprestimo] = []
+        self.livros = []
+        self.usuarios = []
+        self.emprestimos = []
         self.proxima_matricula = 1
 
     def cadastrar_livro(self):
@@ -81,11 +81,21 @@ class Biblioteca:
             print("Nenhum livro cadastrado.")
             return
 
+        print("\n--- LIVROS CADASTRADOS ---")
+
         for livro in self.livros:
             print("--------------------")
             livro.consultar()
 
     def emprestar_livro(self):
+        if len(self.livros) == 0:
+            print("Não há livros cadastrados.")
+            return
+
+        if len(self.usuarios) == 0:
+            print("Não há usuários cadastrados.")
+            return
+
         codigo = input("Código do livro: ")
         matricula = input("Matrícula do usuário: ")
 
@@ -117,7 +127,11 @@ class Biblioteca:
         livro_encontrado.quantidade -= 1
         livro_encontrado.emprestimos += 1
 
-        emprestimo = Emprestimo(usuario_encontrado, livro_encontrado)
+        emprestimo = Emprestimo(
+            usuario_encontrado,
+            livro_encontrado
+        )
+
         self.emprestimos.append(emprestimo)
 
         print("Empréstimo realizado com sucesso!")
@@ -132,6 +146,7 @@ class Biblioteca:
 
                 emprestimo.livro.quantidade += 1
                 self.emprestimos.remove(emprestimo)
+
                 print("Livro devolvido com sucesso!")
                 return
 
@@ -139,8 +154,10 @@ class Biblioteca:
 
     def relatorio_emprestimos(self):
         if len(self.emprestimos) == 0:
-            print("Nenhum empréstimo realizado.")
+            print("Nenhum empréstimo ativo.")
             return
+
+        print("\n--- RELATÓRIO DE EMPRÉSTIMOS ---")
 
         for emprestimo in self.emprestimos:
             print("--------------------")
@@ -150,11 +167,12 @@ class Biblioteca:
             print("Código:", emprestimo.livro.codigo)
 
     def buscar_livro(self):
-        nome = input("Título do livro: ").lower()
+        nome = input("Digite o título do livro: ").lower()
         encontrado = False
 
         for livro in self.livros:
             if nome in livro.titulo.lower():
+                print("--------------------")
                 livro.consultar()
                 encontrado = True
 
@@ -168,8 +186,10 @@ class Biblioteca:
             if livro.codigo == codigo:
                 titulo = input("Novo título (Enter para manter): ")
                 autor = input("Novo autor (Enter para manter): ")
+
                 livro.editar(titulo, autor)
-                print("Livro atualizado!")
+
+                print("Livro atualizado com sucesso!")
                 return
 
         print("Livro não encontrado.")
@@ -191,6 +211,7 @@ class Biblioteca:
         print("Livro não encontrado.")
 
     def estatisticas(self):
+        print("\n--- ESTATÍSTICAS ---")
         print("Total de livros cadastrados:", len(self.livros))
         print("Total de usuários:", len(self.usuarios))
         print("Empréstimos ativos:", len(self.emprestimos))
