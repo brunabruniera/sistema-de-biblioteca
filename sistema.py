@@ -39,6 +39,7 @@ class Biblioteca:
         self.livros: list[Livro] = []
         self.usuarios: list[Usuario] = []
         self.emprestimos: list[Emprestimo] = []
+        self.proxima_matricula = 1
 
     def cadastrar_livro(self):
         titulo = input("Título: ")
@@ -66,13 +67,14 @@ class Biblioteca:
     def cadastrar_usuario(self):
         nome = input("Nome: ")
 
-        matricula = str(len(self.usuarios) + 1)
+        matricula = str(self.proxima_matricula)
+        self.proxima_matricula += 1
 
         usuario = Usuario(nome, matricula)
-     self.usuarios.append(usuario)
+        self.usuarios.append(usuario)
 
-    print("Usuário cadastrado com sucesso!")
-    print("Sua matrícula é:", matricula)
+        print("Usuário cadastrado com sucesso!")
+        print("Sua matrícula é:", matricula)
 
     def consultar_livros(self):
         if len(self.livros) == 0:
@@ -189,7 +191,7 @@ class Biblioteca:
         print("Livro não encontrado.")
 
     def estatisticas(self):
-        print("Total de livros:", len(self.livros))
+        print("Total de livros cadastrados:", len(self.livros))
         print("Total de usuários:", len(self.usuarios))
         print("Empréstimos ativos:", len(self.emprestimos))
 
