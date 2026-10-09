@@ -62,6 +62,7 @@ class Biblioteca:
 
         livro = Livro(titulo, autor, codigo, quantidade)
         self.livros.append(livro)
+
         print("Livro cadastrado com sucesso!")
 
     def cadastrar_usuario(self):
@@ -74,6 +75,7 @@ class Biblioteca:
         self.usuarios.append(usuario)
 
         print("Usuário cadastrado com sucesso!")
+        print("Nome:", nome)
         print("Sua matrícula é:", matricula)
 
     def consultar_livros(self):
@@ -135,15 +137,18 @@ class Biblioteca:
         self.emprestimos.append(emprestimo)
 
         print("Empréstimo realizado com sucesso!")
+        print("Usuário:", usuario_encontrado.nome)
+        print("Livro:", livro_encontrado.titulo)
 
     def devolver_livro(self):
         matricula = input("Matrícula do usuário: ")
         codigo = input("Código do livro: ")
 
         for emprestimo in self.emprestimos:
-            if (emprestimo.usuario.matricula == matricula
-                    and emprestimo.livro.codigo == codigo):
-
+            if (
+                emprestimo.usuario.matricula == matricula
+                and emprestimo.livro.codigo == codigo
+            ):
                 emprestimo.livro.quantidade += 1
                 self.emprestimos.remove(emprestimo)
 
@@ -184,8 +189,10 @@ class Biblioteca:
 
         for livro in self.livros:
             if livro.codigo == codigo:
-                titulo = input("Novo título (Enter para manter): ")
-                autor = input("Novo autor (Enter para manter): ")
+                print("Deixe em branco para manter o valor atual.")
+
+                titulo = input("Novo título: ")
+                autor = input("Novo autor: ")
 
                 livro.editar(titulo, autor)
 
@@ -201,7 +208,8 @@ class Biblioteca:
             if livro.codigo == codigo:
                 for emprestimo in self.emprestimos:
                     if emprestimo.livro == livro:
-                        print("Não é possível excluir: livro emprestado.")
+                        print("Não é possível excluir.")
+                        print("Este livro está emprestado.")
                         return
 
                 livro.excluir()
@@ -226,6 +234,18 @@ class Biblioteca:
             print("Livro mais emprestado:", maior.titulo)
             print("Quantidade de empréstimos:", maior.emprestimos)
 
+    def consultar_usuarios(self):
+        if len(self.usuarios) == 0:
+            print("Nenhum usuário cadastrado.")
+            return
+
+        print("\n--- USUÁRIOS CADASTRADOS ---")
+
+        for usuario in self.usuarios:
+            print("--------------------")
+            print("Nome:", usuario.nome)
+            print("Matrícula:", usuario.matricula)
+
     def menu(self):
         while True:
             print("\n--- SISTEMA DE BIBLIOTECA ---")
@@ -239,6 +259,7 @@ class Biblioteca:
             print("8 - Editar livro")
             print("9 - Excluir livro")
             print("10 - Estatísticas")
+            print("11 - Consultar usuários")
             print("0 - Sair")
 
             opcao = input("Escolha uma opção: ")
@@ -263,6 +284,8 @@ class Biblioteca:
                 self.excluir_livro()
             elif opcao == "10":
                 self.estatisticas()
+            elif opcao == "11":
+                self.consultar_usuarios()
             elif opcao == "0":
                 print("Programa encerrado.")
                 break
