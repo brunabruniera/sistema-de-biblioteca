@@ -65,16 +65,14 @@ class Biblioteca:
 
     def cadastrar_usuario(self):
         nome = input("Nome: ")
-        matricula = input("Matrícula: ")
 
-        for usuario in self.usuarios:
-            if usuario.matricula == matricula:
-                print("Matrícula já cadastrada!")
-                return
+        matricula = str(len(self.usuarios) + 1)
 
         usuario = Usuario(nome, matricula)
-        self.usuarios.append(usuario)
-        print("Usuário cadastrado com sucesso!")
+     self.usuarios.append(usuario)
+
+    print("Usuário cadastrado com sucesso!")
+    print("Sua matrícula é:", matricula)
 
     def consultar_livros(self):
         if len(self.livros) == 0:
